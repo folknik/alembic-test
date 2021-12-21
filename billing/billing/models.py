@@ -1,10 +1,11 @@
 from sqlalchemy import Column, DateTime, String, Integer, func
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import declarative_base
 
 Base = declarative_base()
 
 
 class Bug(Base):
+    __table_args__ = {'schema': 'public'}
     __tablename__ = 'bug'
     id = Column(Integer, primary_key=True)
     bug_tracker_url = Column(String, unique=True)
@@ -12,5 +13,5 @@ class Bug(Base):
     who = Column(String)
     when = Column(DateTime, default=func.now())
 
-    def __repr__(self):
-        return 'id: {}, root cause: {}'.format(self.id, self.root_cause)
+    # def __repr__(self):
+    #     return 'id: {}, root cause: {}'.format(self.id, self.root_cause)
